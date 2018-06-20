@@ -24,7 +24,7 @@ class TestNextDigitChecking(object):
     def test_for_empty_string_returns_zero(self, resource_captcha):
         assert self.resource_captcha().solve_using_next("") == 0
 
-    def test_for_1122_returns_3(self, resource_captcha  ):
+    def test_for_1122_returns_3(self, resource_captcha):
         assert self.resource_captcha().solve_using_next("1122") == 3
 
     def test_for_1111_returns_4(self, resource_captcha):
