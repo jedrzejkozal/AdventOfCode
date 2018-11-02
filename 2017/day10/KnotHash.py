@@ -6,9 +6,9 @@ class KnotHash(object):
         self.current_position = 0
         self.skip_size = 0
 
-    def knot(self):
-        while not self.list.empty():
-            self.tie_knot(self.input_length.pop())
+    def knot_list(self):
+        while len(self.input_length) != 0:
+            self.tie_knot(self.input_length.pop(0))
 
     def knot(self, input_length):
         self.tie_knot(input_length)
