@@ -21,29 +21,6 @@ class Graph(Container, Sized):
         return len(self.vertices)
 
 
-    def __addVert(self, vert):
-        if vert not in self.vertices:
-            self.vertices.append(vert)
-
-
-    def __addEdge(self, vert, edges_list):
-        for edge in edges_list:
-            if (vert, edge) not in self.edges.items():
-                self.edges[vert] = edge
-
-
-    def __convertEdgesAndVertToInt(self, vert, edges_list):
-        vert = int(vert)
-        edges_list = [int(e) for e in edges_list]
-        return vert, edges_list
-
-
-    def __addEdgesAndVert(self, vert, edges_list):
-        vert, edges_list = self.__convertEdgesAndVertToInt(vert, edges_list)
-        self.__addVert(vert)
-        self.__addEdge(vert, edges_list)
-
-
     def parseGraph(self, strings_list):
         for number, line in enumerate(strings_list):
             try:
@@ -54,6 +31,32 @@ class Graph(Container, Sized):
                 return
 
             self.__addEdgesAndVert(vert, edges_list)
+
+
+    def __addEdgesAndVert(self, vert, edges_list):
+        vert, edges_list = self.__convertEdgesAndVertToInt(vert, edges_list)
+        self.__addVert(vert)
+        self.__addEdge(vert, edges_list)
+
+
+    def __convertEdgesAndVertToInt(self, vert, edges_list):
+        vert = int(vert)
+        edges_list = [int(e) for e in edges_list]
+        return vert, edges_list
+
+
+    def __addVert(self, vert):
+        if vert not in self.vertices:
+            self.vertices.append(vert)
+
+
+    def __addEdge(self, vert, edges_list):
+        for edge in edges_list:
+            if vert not in self.edges:
+                self.edges[vert] = [edge]
+            else:
+                self.edges[vert].append(edge)
+
 
     def empty(self):
         return self.__len__() == 0
