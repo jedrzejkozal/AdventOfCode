@@ -59,6 +59,19 @@ class TestGraphParsing(object):
         assert self.sut.contains_edge((1, [0, 0]))
 
 
+    def test_parse_graph_with_three_nodes_graph_single_line_is_not_empty(self, three_nodes_graph_single_line):
+        self.sut.parseGraph(three_nodes_graph_single_line)
+        assert self.sut.empty() == False
+
+
+    def test_parse_graph_with_three_nodes_graph_single_line_contains_verticies(self, three_nodes_graph_single_line):
+        self.sut.parseGraph(three_nodes_graph_single_line)
+
+        assert 0 in self.sut
+        assert 1 in self.sut
+        assert 2 in self.sut
+
+
     def test_parse_graph_with_three_nodes_graph_is_not_empty(self, three_nodes_graph):
         self.sut.parseGraph(three_nodes_graph)
         assert self.sut.empty() == False
@@ -66,7 +79,7 @@ class TestGraphParsing(object):
 
     def test_parse_graph_with_three_nodes_graph_contains_verticies(self, three_nodes_graph):
         self.sut.parseGraph(three_nodes_graph)
-        #vert 0:
+
         assert 0 in self.sut
         assert 1 in self.sut
         assert 2 in self.sut

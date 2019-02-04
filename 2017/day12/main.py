@@ -1,4 +1,4 @@
-
+from Graph import *
 
 def readGraph(filename):
     f = open(filename, 'r')
@@ -7,4 +7,9 @@ def readGraph(filename):
     return result
 
 
-readGraph("input1.txt")
+graph_string = readGraph("input1.txt")
+graph = Graph()
+graph.parseGraph(graph_string)
+result = graph.traverseAll(0)
+
+print(len(result))

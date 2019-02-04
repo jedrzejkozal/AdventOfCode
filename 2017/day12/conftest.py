@@ -64,6 +64,21 @@ def three_nodes_graph():
 """
 ↙ --- \
 0 --→ 1
+ ↖ \
+  \ \
+   \ ↘
+      2
+"""
+@pytest.fixture
+def three_nodes_graph_single_line():
+    return ["0 <-> 1, 2",
+            "1 <-> 0",
+            "2 <-> 0"]
+
+
+"""
+↙ --- \
+0 --→ 1
 
 ↙ --- \
 2 --→ 3

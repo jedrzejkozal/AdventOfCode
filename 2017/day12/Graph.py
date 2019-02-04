@@ -30,10 +30,14 @@ class Graph(Container, Sized):
 
     def __parseSingleLine(self, line, number):
         try:
-            vert, _, edges_list = line.split()
-            return vert, edges_list
+            splited = line.split()
+            return splited[0], splited[2:]
         except ValueError:
             logging.warning("Invalid content of graph file in line {}. "
+                            "Line skipped".format(number+1))
+            return None, None
+        except IndexError:
+            logging.warning("Empty string of graph file in line {}. "
                             "Line skipped".format(number+1))
             return None, None
 
@@ -46,7 +50,12 @@ class Graph(Container, Sized):
 
     def __convertEdgesAndVertToInt(self, vert, edges_list):
         vert = int(vert)
-        edges_list = [int(e) for e in edges_list]
+        def f(e):
+            if e[-1] is ',':
+                return int(e[:-1])
+            else:
+                return int(e)
+        edges_list = [f(e) for e in edges_list]
         return vert, edges_list
 
 
