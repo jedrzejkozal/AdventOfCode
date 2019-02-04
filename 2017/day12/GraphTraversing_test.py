@@ -1,18 +1,8 @@
 import pytest
 
-from Graph import *
+from GraphTestBase import *
 
-class TestGraphTraversing(object):
-
-    @pytest.fixture(scope="class")
-    def parse_graph(self, nodes):
-        self.sut.parseGraph(nodes)
-
-
-    @classmethod
-    def setup(cls):
-        cls.sut = Graph()
-
+class TestGraphTraversing(GraphTestBase):
 
     def test_traverse_one_node_graph_all_nodes_are_visited(self, one_node_graph):
         self.parse_graph(one_node_graph)

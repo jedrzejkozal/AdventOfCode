@@ -88,3 +88,21 @@ class Graph(Container, Sized):
         for n in self.edges[node]:
             if n not in self.visitedNodes:
                 self.__traverse(n)
+
+
+    def countGroups(self):
+        self.remeaningNodes = set(self.vertices)
+        numberOfGroups = 0
+
+        while len(self.remeaningNodes) is not 0:
+            self.__traverseNextGroup()
+            numberOfGroups += 1
+
+
+        return numberOfGroups
+
+
+    def __traverseNextGroup(self):
+        startingNode = next(iter(self.remeaningNodes))
+        visitedNodes = set(self.traverseAll(startingNode))
+        self.remeaningNodes = self.remeaningNodes - visitedNodes

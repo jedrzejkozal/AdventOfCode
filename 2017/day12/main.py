@@ -12,4 +12,7 @@ graph = Graph()
 graph.parseGraph(graph_string)
 result = graph.traverseAll(0)
 
-print(len(result))
+print("Number of traversed elements : {}".format(len(result)))
+
+numberOfGroups = graph.countGroups()
+print("Number of groups: {}".format(numberOfGroups))
