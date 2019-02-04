@@ -23,14 +23,19 @@ class Graph(Container, Sized):
 
     def parseGraph(self, strings_list):
         for number, line in enumerate(strings_list):
-            try:
-                vert, _, edges_list = line.split()
-            except ValueError:
-                logging.warning("Invalid content of graph file in line {}. "
-                                "Parsing stoped".format(number+1))
-                return
+            vert, edges_list = self.__parseSingleLine(line, number)
+            if vert is not None and edges_list is not None:
+                self.__addEdgesAndVert(vert, edges_list)
 
-            self.__addEdgesAndVert(vert, edges_list)
+
+    def __parseSingleLine(self, line, number):
+        try:
+            vert, _, edges_list = line.split()
+            return vert, edges_list
+        except ValueError:
+            logging.warning("Invalid content of graph file in line {}. "
+                            "Line skipped".format(number+1))
+            return None, None
 
 
     def __addEdgesAndVert(self, vert, edges_list):
@@ -60,3 +65,17 @@ class Graph(Container, Sized):
 
     def empty(self):
         return self.__len__() == 0
+
+
+    def traverseAll(self, startingNode):
+        self.visitedNodes = []
+        self.__traverse(startingNode)
+        return self.visitedNodes
+
+
+    def __traverse(self, node):
+        self.visitedNodes.append(node)
+
+        for n in self.edges[node]:
+            if n not in self.visitedNodes:
+                self.__traverse(n)
