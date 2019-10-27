@@ -4,4 +4,5 @@ input.txt
 .cache
 .pytest_cache
 .vscode
+a.out
 build*
