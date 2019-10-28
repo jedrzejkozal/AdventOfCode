@@ -20,7 +20,7 @@ std::vector<std::string> split(const std::string &str, char delim = ',')
     return container;
 }
 
-std::string spin(std::string X, std::string base)
+std::string spin(const std::string &X, std::string &base)
 {
     int X_int = std::stoi(X);
     auto size = base.size();
@@ -28,7 +28,7 @@ std::string spin(std::string X, std::string base)
     return base;
 }
 
-std::string exchange(std::string AB, std::string base)
+std::string exchange(const std::string &AB, std::string &base)
 {
     int slash_idnex = AB.find('/', 1);
     std::string A = AB.substr(0, slash_idnex);
@@ -39,7 +39,7 @@ std::string exchange(std::string AB, std::string base)
     return base;
 }
 
-std::string partner(std::string AB, std::string base)
+std::string partner(const std::string &AB, std::string &base)
 {
     int A_int = base.find(AB[0]);
     int B_int = base.find(AB[2]);
@@ -47,7 +47,7 @@ std::string partner(std::string AB, std::string base)
     return base;
 }
 
-std::string dance(std::string input_str, std::string base = "abcdefghijklmnop")
+std::string dance(const std::string &input_str, std::string &base)
 {
     std::vector<std::string> splited = split(input_str);
 
@@ -66,19 +66,25 @@ std::string dance(std::string input_str, std::string base = "abcdefghijklmnop")
 int main()
 {
     std::cout << "Test spin" << std::endl;
-    auto result1 = dance("s2");
+    auto arg1 = std::string("s2");
+    std::string base1 = "abcdefghijklmnop";
+    auto result1 = dance(arg1, base1);
     std::cout << result1 << std::endl;
     if (result1 != "opabcdefghijklmn")
         std::cout << "TEST FAILED!" << std::endl;
 
     std::cout << "Test exchange" << std::endl;
-    auto result2 = dance("x1/2");
+    auto arg2 = std::string("x1/2");
+    std::string base2 = "abcdefghijklmnop";
+    auto result2 = dance(arg2, base2);
     std::cout << result2 << std::endl;
     if (result2 != "acbdefghijklmnop")
         std::cout << "TEST FAILED!" << std::endl;
 
     std::cout << "Test exchange" << std::endl;
-    auto result3 = dance("pi/b");
+    auto arg3 = std::string("pi/b");
+    std::string base3 = "abcdefghijklmnop";
+    auto result3 = dance(arg3, base3);
     std::cout << result3 << std::endl;
     if (result3 != "aicdefghbjklmnop")
         std::cout << "TEST FAILED!" << std::endl;
@@ -92,8 +98,9 @@ int main()
 
     for (unsigned i = 0; i < n; i++)
     {
+        std::string base = "abcdefghijklmnop";
         auto t1 = std::chrono::high_resolution_clock::now();
-        result_stage1 = dance(input);
+        result_stage1 = dance(input, base);
         auto t2 = std::chrono::high_resolution_clock::now();
         avrg_duration += std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1).count();
     }
