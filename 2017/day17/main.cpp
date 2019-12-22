@@ -19,20 +19,6 @@ public:
     LockNode *next_node;
 };
 
-/*
-def compute_spinlock(step, num_steps):
-    spinlock_root = LockNode(0)
-    spinlock_root.next_node = spinlock_root
-    spinlock = spinlock_root
-
-    for i in range(1, num_steps+1):
-        for _ in range(step):
-            spinlock = spinlock.next_node
-        spinlock.insert(LockNode(i))
-        spinlock = spinlock.next_node
-    return spinlock, spinlock_root
-*/
-
 LockNode *compute_spinlock(unsigned step, unsigned num_steps)
 {
     LockNode *spinlock = new LockNode(0);
@@ -51,11 +37,6 @@ LockNode *compute_spinlock(unsigned step, unsigned num_steps)
     return spinlock;
 }
 
-/*
-    spinlock, _ = compute_spinlock(step=359, num_steps=2017)
-    solution1 = spinlock.next_node.value
-    print("part 1 solution = ", solution1)
-*/
 
 int main()
 {
