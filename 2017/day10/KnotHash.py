@@ -7,11 +7,8 @@ class KnotHash(object):
         self.skip_size = 0
 
     def knot_list(self):
-        while len(self.input_length) != 0:
-            self.tie_knot(self.input_length.pop(0))
-
-    def knot(self, input_length):
-        self.tie_knot(input_length)
+        for inp_len in self.input_length:
+            self.tie_knot(inp_len)
 
     def tie_knot(self, length):
         offset = self.current_position + length
