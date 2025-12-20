@@ -102,11 +102,12 @@ int main()
         auto t1 = std::chrono::high_resolution_clock::now();
         result_stage1 = dance(input, base);
         auto t2 = std::chrono::high_resolution_clock::now();
-        avrg_duration += std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1).count();
+        avrg_duration += std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count();
     }
 
     std::cout << result_stage1 << std::endl;
     std::cout << "ociedpjbmfnkhlga" << std::endl;
+    std::cout << avrg_duration << std::endl;
     std::cout << avrg_duration / n << std::endl;
 
     return 0;
