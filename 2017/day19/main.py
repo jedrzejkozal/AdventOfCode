@@ -15,6 +15,7 @@ def main():
     current_char = array[i][j]
 
     collected_letters = []
+    n_steps = 0
 
     while current_char != ' ':
         # update postion
@@ -42,9 +43,11 @@ def main():
                     direction = 'up'
                 else:
                     direction = 'down'
+        n_steps += 1
 
-    print(collected_letters)
-    print(('{}'*len(collected_letters)).format(*collected_letters))
+    # print(collected_letters)
+    # print(('{}'*len(collected_letters)).format(*collected_letters))
+    print(n_steps)
 
 
 if __name__ == '__main__':
