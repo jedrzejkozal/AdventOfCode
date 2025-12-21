@@ -1,4 +1,5 @@
 import numpy as np
+from tqdm import tqdm
 
 
 def main():
@@ -34,8 +35,8 @@ def main():
     print()
     print()
 
-    n_rounds = 5
-    for _ in range(n_rounds):
+    n_rounds = 18
+    for _ in tqdm(range(n_rounds), total=n_rounds):
         result_img = []
         if img_input.shape[0] % 2 == 0:
             for i in range(0, img_input.shape[0], 2):
