@@ -1,4 +1,5 @@
 import numpy as np
+from tqdm import tqdm
 
 
 class Direction:
@@ -30,29 +31,39 @@ def main():
     # print(puzzle_input)  # 25x25 grid
     grid_size = len(puzzle_input)
 
-    infected_nodes = []
+    infected_nodes = set()
+    weakened_nodes = set()
+    flagged_nodes = set()
     for i in range(grid_size):
         for j in range(grid_size):
             if puzzle_input[i][j] == '#':
-                infected_nodes.append([i, j])
+                infected_nodes.add((i, j))
 
     start = grid_size // 2
     current_position = [start, start]
 
-    n_bursts = 10000
+    n_bursts = 10000000
     n_infections = 0
     direction = Direction()
-    for _ in range(n_bursts):
-        if current_position in infected_nodes:
-            # print('direction before turn = ', current_dir)
-            current_dir = direction.turn_right()
-            # print('direction after turn = ', current_dir)
-            infected_nodes.remove(current_position)
+    for _ in tqdm(range(n_bursts), total=n_bursts):
+        if tuple(current_position) in weakened_nodes:
+            weakened_nodes.remove(tuple(current_position))
+            infected_nodes.add(tuple(current_position))
             current_position = move_forward(current_position, current_dir)
-        else:
-            current_dir = direction.turn_left()
-            infected_nodes.append(current_position)
             n_infections += 1
+        elif tuple(current_position) in infected_nodes:
+            current_dir = direction.turn_right()
+            infected_nodes.remove(tuple(current_position))
+            flagged_nodes.add(tuple(current_position))
+            current_position = move_forward(current_position, current_dir)
+        elif tuple(current_position) in flagged_nodes:
+            direction.turn_right()
+            current_dir = direction.turn_right()
+            flagged_nodes.remove(tuple(current_position))
+            current_position = move_forward(current_position, current_dir)
+        else:  # clean node
+            current_dir = direction.turn_left()
+            weakened_nodes.add(tuple(current_position))
             current_position = move_forward(current_position, current_dir)
 
         # print_table(current_position, infected_nodes)
