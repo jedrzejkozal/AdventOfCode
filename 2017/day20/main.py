@@ -10,7 +10,7 @@ def main():
         for line in f.readlines():
             particles_spec.append(line)
 
-    for n in [1000]:  # [1000, 10000, 10000000, 100000000, 1000000000, 1000000000]:
+    for n in [1000]:
         n_left = simulation(particles_spec, n)
         print(f'{n}: particles left: {n_left}')
 
@@ -38,17 +38,18 @@ def simulation(particles_spec, n=100000):
             postion += velocity
 
             parcticles_list[i] = [postion, velocity, accelaration]
-            pos_hash = '{}{}{}'.format(*postion.tolist())
+            pos_hash = tuple(postion.tolist())
             pos_index[pos_hash].append(i)
 
+        # Collect all particles that need to be removed
+        particles_to_remove = set()
         for pos_list in pos_index.values():
             if len(pos_list) > 1:
-                sorted_idx = list(reversed(sorted(pos_list)))
-                # print(sorted_idx)
-                # print(f'collision at time {t_idx} at position {parcticles_list[sorted_idx[0]][0]} particles idx: {sorted_idx}')
-                # exit()
-                for j in sorted_idx:
-                    parcticles_list.pop(j)
+                particles_to_remove.update(pos_list)
+
+        # Remove particles in reverse order of index to avoid shifting issues
+        for j in sorted(particles_to_remove, reverse=True):
+            parcticles_list.pop(j)
 
         # for p in parcticles_list:
         #     print(p)
